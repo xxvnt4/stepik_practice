@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 todo_dict = {
     'monday': 'first',
@@ -13,10 +13,10 @@ todo_dict = {
 
 
 def get_day_number(request, day: int):
-    if day > 0 and day < 8:
-        return HttpResponse(f'Today is the {day} day of a week!')
-    else:
-        return HttpResponseNotFound(f'There is no the {day} day in a week!')
+    days = list(todo_dict)
+    if day <= 0 or day > 7:
+        return HttpResponseNotFound(f'Неправильный порядковый номер дня недели!')
+    return HttpResponseRedirect(f'/week_days/{days[day - 1]}')
 
 
 def get_todo_list(request, day):
