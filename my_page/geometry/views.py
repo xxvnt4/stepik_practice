@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 
 def get_rectangle_area(request, width: int, height: int):
@@ -9,6 +9,9 @@ def get_rectangle_area(request, width: int, height: int):
 def get_rectangle_area_error(request, width, height):
     return HttpResponseNotFound('Please, enter valid values!')
 
+def redirect_rectangle_area(request, width: int, height: int):
+    return HttpResponseRedirect(f'/calculate_geometry/rectangle/{width}/{height}')
+
 
 def get_square_area(request, width: int):
     area = width ** 2
@@ -18,6 +21,8 @@ def get_square_area(request, width: int):
 def get_square_area_error(request, width):
     return HttpResponseNotFound('Please, enter valid value!')
 
+def redirect_square_area(request, width: int):
+    return HttpResponseRedirect(f'/calculate_geometry/square/{width}')
 
 def get_circle_area(request, radius: int):
     PI = 3.14
@@ -27,3 +32,6 @@ def get_circle_area(request, radius: int):
 
 def get_circle_area_error(request, radius):
     return HttpResponseNotFound('Please, enter valid value!')
+
+def redirect_circle_area(request, radius: int):
+    return HttpResponseRedirect(f'/calculate_geometry/circle/{radius}')
