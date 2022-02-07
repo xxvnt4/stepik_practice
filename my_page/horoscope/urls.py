@@ -7,5 +7,5 @@ from . import views
 # Доступные типы для конвертации в документации Django
 urlpatterns = [
     path('<int:zodiac_sign>/', views.get_zodiac_info_by_number),
-    path('<str:zodiac_sign>/', views.get_zodiac_info)
+    path('<str:zodiac_sign>/', views.get_zodiac_info, name='horoscope-name')
 ]
