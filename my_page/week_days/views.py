@@ -26,3 +26,17 @@ def get_todo_list(request, day):
         return HttpResponse(description)
     else:
         return HttpResponseNotFound(f'There is no such day as {day}!')
+
+
+def index(request):
+    days = list(todo_dict)
+    li_elements = ''
+    for day in days:
+        redirect_path = reverse('week_days_name', args=[day])
+        li_elements += f'<li><a href="{redirect_path}">{day.title()}</a></li>'
+    response = f'''
+    <ol>
+        {li_elements}
+    </ol>
+    '''
+    return HttpResponse(response)
