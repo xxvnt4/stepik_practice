@@ -34,3 +34,24 @@ def get_zodiac_info_by_number(request, zodiac_sign: int):
     # А в args списком запишем переменную name_zodiac.
     redirect_url = reverse('horoscope-name', args=[name_zodiac])
     return HttpResponseRedirect(redirect_url)
+
+
+def index(request):
+    zodiacs = list(zodiac_dict)
+    # Присваиваем переменной список из ключей словаря
+    li_elements = ''
+    # Создадим пустую строку для того, чтобы заполнить ее необходимой информацией
+    for sign in zodiacs:
+        # С помощью цикла обойдем все знаки зодиака и добавим их как ссылки в переменную li_elements
+        redirect_path = reverse('horoscope-name', args=[sign])
+        li_elements += f'<li><a href="{redirect_path}">{sign.title()}</a></li>'
+        # Каждый пункт списка превратим в ссылку
+        # title() - метод, с помощью которого можно сделать первый символ строки заглавным
+    response = f'''
+    <ol>
+        {li_elements}
+    </ol>
+    '''
+    # Получивишийся результат обрамляем тегами Unordered List
+    return HttpResponse(response)
+    # Возвращаем полученный результат
