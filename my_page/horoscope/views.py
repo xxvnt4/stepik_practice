@@ -178,3 +178,15 @@ def determine_zodiac_sign(request, month, day):
 
 def determine_zodiac_sign_error(request, month, day):
     return HttpResponseNotFound('Please, enter valid values!')
+
+
+def get_yyyy_converters(request, zodiac_value):
+    return HttpResponse(f'You give me a number with four digits - {zodiac_value}!')
+
+
+def get_my_float_converters(request, zodiac_value):
+    return HttpResponse(f'You give me a real number - {zodiac_value}!')
+
+
+def get_my_date_converters(request, zodiac_value):
+    return HttpResponse(f'You give me a date - {zodiac_value}!')
