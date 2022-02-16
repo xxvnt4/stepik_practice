@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
+from dataclasses import dataclass
 
 zodiac_dict = {
     'aries':
@@ -124,10 +125,34 @@ number_of_days = {
 }
 
 
-def get_zodiac_info(request, zodiac_sign):
-    return render(request, 'horoscope/info_zodiac.html')
+@dataclass
+class Person:
+    name: str
+    age: int
+
+    def __str__(self):
+        return f'This is {self.name}!'
+
+
+def get_zodiac_info(request, zodiac_value):
+    description = zodiac_dict.get(zodiac_value)
+    # Присвоим переменной значение по названию знака зодиака
+    data = {
+        'description_zodiac': description['description'],
+        'name': zodiac_value.title(),
+        'my_list': [1, 2, 3],
+        'my_tuple': (1, 2, 3, 4, 5),
+        'my_dict': {'name': 'Jack', 'age': 40},
+        'my_int': 111,
+        'my_float': 111.5,
+        'my_class': Person('Will', 55)
+    }
+    # Переменной data присвоим словарь, который мы будем использовать при обращении к его значениям из HTML-файла.
+    return render(request, 'horoscope/info_zodiac.html', context=data)
     # С помощью данной функции из модуля django.shortcuts можно объединить процесс трансформации файла в строку и
     # HTTP-ответа. Наряду с роутом эта функция обязательно должна принимать request.
+    # Именнованному аргументу context присвоим значение нашего словаря data, с которым мы и будем работать
+    # при обращении из HTML-файла.
 
 
 def get_zodiac_info_by_number(request, zodiac_value: int):
