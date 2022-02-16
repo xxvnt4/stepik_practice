@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'horoscope',
     # Определим наше приложение в данном списке
     'week_days',
-    'geometry'
+    'geometry',
+    'reeves'
 ]
 
 MIDDLEWARE = [
