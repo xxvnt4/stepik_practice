@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'horoscope',
     # Определим наше приложение в данном списке
-    'week_days'
+    'week_days',
+    'geometry'
 ]
 
 MIDDLEWARE = [
