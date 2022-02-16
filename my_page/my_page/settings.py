@@ -35,8 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'horoscope'
+    'horoscope',
     # Определим наше приложение в данном списке
+    'week_days'
 ]
 
 MIDDLEWARE = [

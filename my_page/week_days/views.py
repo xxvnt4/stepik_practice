@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 
@@ -21,12 +22,7 @@ def get_day_number(request, day: int):
 
 
 def get_todo_list(request, day):
-    description = todo_dict.get(day)
-    if description:
-        return HttpResponse(description)
-    else:
-        return HttpResponseNotFound(f'There is no such day as {day}!')
-
+    return render(request, 'week_days/greeting.html')
 
 def index(request):
     days = list(todo_dict)
