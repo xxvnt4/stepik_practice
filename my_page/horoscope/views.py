@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
+from django.template.loader import render_to_string
 
 zodiac_dict = {
     'aries':
@@ -124,11 +125,8 @@ number_of_days = {
 
 
 def get_zodiac_info(request, zodiac_sign):
-    description = zodiac_dict.get(zodiac_sign)['description']
-    if description:
-        return HttpResponse(description)
-    else:
-        return HttpResponseNotFound(f'No information about {zodiac_sign}!')
+    response = render_to_string('horoscope/info_zodiac.html')
+    return HttpResponse(response)
 
 
 def get_zodiac_info_by_number(request, zodiac_value: int):
