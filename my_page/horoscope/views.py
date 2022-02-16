@@ -1,6 +1,6 @@
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
-from django.template.loader import render_to_string
 
 zodiac_dict = {
     'aries':
@@ -125,8 +125,9 @@ number_of_days = {
 
 
 def get_zodiac_info(request, zodiac_sign):
-    response = render_to_string('horoscope/info_zodiac.html')
-    return HttpResponse(response)
+    return render(request, 'horoscope/info_zodiac.html')
+    # С помощью данной функции из модуля django.shortcuts можно объединить процесс трансформации файла в строку и
+    # HTTP-ответа. Наряду с роутом эта функция обязательно должна принимать request.
 
 
 def get_zodiac_info_by_number(request, zodiac_value: int):
