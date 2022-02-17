@@ -6,5 +6,6 @@ urlpatterns = [
     path('horoscope/', include('horoscope.urls')),
     path('week_days/', include('week_days.urls')),
     path('geometry/', include('geometry.urls')),
-    path('reeves/', include('reeves.urls'))
+    path('reeves/', include('reeves.urls')),
+    path('guinness/', include('guinness.urls'))
 ]

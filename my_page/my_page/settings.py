@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     # Определим наше приложение в данном списке
     'week_days',
     'geometry',
-    'reeves'
+    'reeves',
+    'guinness'
 ]
 
 MIDDLEWARE = [
