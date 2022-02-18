@@ -2,16 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Гороскоп для {{name}}</title>
+    <title>Гороскоп для {{name|capfirst}}</title>
     <!-- Для того, чтобы получить значение той или иной переменной, необходимо заключить ее название в двойные фигурные
     скобки -->
 </head>
 <body>
     <h1>HOROSCOPE APP</h1>
-    <h2>{{description_zodiac}}</h2>
-    <p>Число {{my_int}}</p>
+    <h2>{{description_zodiac|title}}</h2>
+    <p>Число {{my_int|add:my_float}}</p>
     <p>Число вещественное {{my_float}}</p>
     <p>Словарь {{my_dict}}, а имя - {{my_dict.name}}</p>
     <p>Экземпляр класс {{my_class}} {{my_class.age}}</p>
+    <p>default {{value|default:'nothing'}}</p>
 </body>
 </html>

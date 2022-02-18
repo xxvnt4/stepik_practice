@@ -139,13 +139,14 @@ def get_zodiac_info(request, zodiac_value):
     # Присвоим переменной значение по названию знака зодиака
     data = {
         'description_zodiac': description['description'],
-        'name': zodiac_value.title(),
+        'name': zodiac_value,
         'my_list': [1, 2, 3],
         'my_tuple': (1, 2, 3, 4, 5),
         'my_dict': {'name': 'Jack', 'age': 40},
         'my_int': 111,
         'my_float': 111.5,
-        'my_class': Person('Will', 55)
+        'my_class': Person('Will', 55),
+        'value': []
     }
     # Переменной data присвоим словарь, который мы будем использовать при обращении к его значениям из HTML-файла.
     return render(request, 'horoscope/info_zodiac.html', context=data)
