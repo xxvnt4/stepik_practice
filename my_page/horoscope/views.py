@@ -137,8 +137,16 @@ class Person:
 def get_zodiac_info(request, zodiac_value):
     description = zodiac_dict.get(zodiac_value)
     # Присвоим переменной значение по названию знака зодиака
+    if description:
+        description_value = description['description']
+    else:
+        description_value = None
+    # Так как здесь словарь со вложенными словарями, то в случае успешнога поиска значения по ключу,
+    # присвоим его переменной description_value. Но если поиск безуспешен, присвоим этой же переменной значение None,
+    # иначе будет ошибка TypeError, так как объект None не является словарем.
+    # Именно переменную description_value помещаем в словарь, чтобы использовать в дальнейшем.
     data = {
-        'description_zodiac': description['description'],
+        'description_zodiac': description_value,
         'name': zodiac_value,
         'my_list': [1, 2, 3],
         'my_tuple': (1, 2, 3, 4, 5),
@@ -182,10 +190,8 @@ def get_zodiac_type_list(request, zodiac_value):
         for sign in type_list:
             redirect_path = reverse('horoscope_name', args=[sign])
             li_elements += f'<li><a href="{redirect_path}">{sign.title()}</a></li>'
-    elif zodiac_value in zodiac_dict:
-        return get_zodiac_info(request, zodiac_value)
     else:
-        return HttpResponseNotFound(f'{zodiac_value} is neither a siqn nor a type!')
+        return get_zodiac_info(request, zodiac_value)
     response = f'''<ul>{li_elements}</ul>'''
     return HttpResponse(response)
 
