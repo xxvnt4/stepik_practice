@@ -175,12 +175,11 @@ def get_zodiac_info_by_number(request, zodiac_value: int):
 
 def index(request):
     types = list(zodiac_types)
-    li_elements = ''
-    for type in types:
-        redirect_path = reverse('zodiac_type_name', args=[type])
-        li_elements += f'<li><a href="{redirect_path}">{type.title()}</a></li>'
-    response = f'''<ul>{li_elements}</ul>'''
-    return HttpResponse(response)
+    # f'<li><a href="{redirect_path}">{type.title()}</a></li>'
+    context = {
+        'types': types
+    }
+    return render(request, 'horoscope/index.html', context=context)
 
 
 def get_zodiac_type_list(request, zodiac_value):
