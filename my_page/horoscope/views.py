@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
-from dataclasses import dataclass
 
 zodiac_dict = {
     'aries':
@@ -125,15 +124,6 @@ number_of_days = {
 }
 
 
-@dataclass
-class Person:
-    name: str
-    age: int
-
-    def __str__(self):
-        return f'This is {self.name}!'
-
-
 def get_zodiac_info(request, zodiac_value):
     description = zodiac_dict.get(zodiac_value)
     # Присвоим переменной значение по названию знака зодиака
@@ -147,14 +137,7 @@ def get_zodiac_info(request, zodiac_value):
     # Именно переменную description_value помещаем в словарь, чтобы использовать в дальнейшем.
     data = {
         'description_zodiac': description_value,
-        'name': zodiac_value,
-        'my_list': [1, 2, 3],
-        'my_tuple': (1, 2, 3, 4, 5),
-        'my_dict': {'name': 'Jack', 'age': 40},
-        'my_int': 111,
-        'my_float': 111.5,
-        'my_class': Person('Will', 55),
-        'value': []
+        'name': zodiac_value
     }
     # Переменной data присвоим словарь, который мы будем использовать при обращении к его значениям из HTML-файла.
     return render(request, 'horoscope/info_zodiac.html', context=data)
@@ -212,11 +195,3 @@ def determine_zodiac_sign_error(request, month, day):
 
 def get_yyyy_converters(request, zodiac_value):
     return HttpResponse(f'You give me a number with four digits - {zodiac_value}!')
-
-
-def get_my_float_converters(request, zodiac_value):
-    return HttpResponse(f'You give me a real number - {zodiac_value}!')
-
-
-def get_my_date_converters(request, zodiac_value):
-    return HttpResponse(f'You give me a date - {zodiac_value}!')

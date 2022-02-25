@@ -7,7 +7,7 @@
 <body>
     <ul>
         {% for type in types %}
-            <li>{{type|title}}</li>
+            <li><a href="{% url 'zodiac_type_name' zodiac_value=type %}">{{type|title}}</a></li>
         {% endfor %}
     </ul>
 </body>
