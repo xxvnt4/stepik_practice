@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Меню</title>
-</head>
-<body>
+{% extends  'base.html' %}
+<!-- Расширяем родительский шаблон. -->
+
+{% block title %}
+    Меню
+{% endblock %}
+<!-- В блоки помещаем необходимый нам контент. -->
+
+{% block content %}
     <ul>
         {% for type in types %}
-            <li><a href="{% url 'zodiac_type_name' zodiac_value=type %}">{{type|title}}</a></li>
+        <li><a href="{% url 'zodiac_type_name' zodiac_value=type %}">{{type|title}}</a></li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

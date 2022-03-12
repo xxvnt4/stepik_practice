@@ -58,7 +58,11 @@ ROOT_URLCONF = 'my_page.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates'
+            # Добавляем путь к родительским шаблонам в этот список. BASE_DIR - корневая папка проекта. 'templates'
+            # - название папки с родительскими шаблонами.
+        ],
         'APP_DIRS': True,
         # Если мы определили приложение в переменной INSTALLED_APPS, то нет необходимости прописывать пути к шаблонам в
         # переменной DIRS. Если значение переменной APP_DIRS истинно, то поиск шаблонов будет производиться автоматически
