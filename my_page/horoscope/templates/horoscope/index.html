@@ -7,9 +7,10 @@
 <!-- В блоки помещаем необходимый нам контент. -->
 
 {% block content %}
+    {% include 'includes/navbar.html' %}
     <ul>
         {% for type in types %}
-        <li><a href="{% url 'zodiac_type_name' zodiac_value=type %}">{{type|title}}</a></li>
+        <li><a href="{% url 'horoscope_value' zodiac_value=type %}">{{type|title}}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

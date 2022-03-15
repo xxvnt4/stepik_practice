@@ -7,9 +7,10 @@
 <!-- В блоки помещаем необходимый нам контент. -->
 
 {% block content %}
-     {% if description_zodiac is None %}
-        <h2>Неправильный знак зодиака - {{name|capfirst}}</h2>
+    {% include 'includes/navbar.html' %}
+    {% if description_zodiac is None %}
+        <p>Неправильный знак зодиака - {{name|capfirst}}</p>
     {% else %}
-        <h2>{{description_zodiac|capfirst}}</h2>
+        <p>{{description_zodiac|capfirst}}</p>
     {% endif %}
 {% endblock %}

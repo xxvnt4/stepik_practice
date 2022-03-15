@@ -152,13 +152,12 @@ def get_zodiac_info_by_number(request, zodiac_value: int):
     if zodiac_value > len(zodiacs):
         return HttpResponseNotFound(f'There is no a zodiac sign with number {zodiac_value}!')
     name_zodiac = zodiacs[zodiac_value - 1]
-    redirect_url = reverse('horoscope_name', args=[name_zodiac])
+    redirect_url = reverse('horoscope_values', args=[name_zodiac])
     return HttpResponseRedirect(redirect_url)
 
 
 def index(request):
     types = list(zodiac_types)
-    # f'<li><a href="{redirect_path}">{type.title()}</a></li>'
     context = {
         'types': types
     }
@@ -167,15 +166,13 @@ def index(request):
 
 def get_zodiac_type_list(request, zodiac_value):
     type_list = zodiac_types.get(zodiac_value)
-    li_elements = ''
     if type_list:
-        for sign in type_list:
-            redirect_path = reverse('horoscope_name', args=[sign])
-            li_elements += f'<li><a href="{redirect_path}">{sign.title()}</a></li>'
+        data = {
+            'type_list': type_list
+        }
+        return render(request, 'horoscope/type_list.html', context=data)
     else:
         return get_zodiac_info(request, zodiac_value)
-    response = f'''<ul>{li_elements}</ul>'''
-    return HttpResponse(response)
 
 
 def determine_zodiac_sign(request, month, day):
@@ -191,7 +188,3 @@ def determine_zodiac_sign(request, month, day):
 
 def determine_zodiac_sign_error(request, month, day):
     return HttpResponseNotFound('Please, enter valid values!')
-
-
-def get_yyyy_converters(request, zodiac_value):
-    return HttpResponse(f'You give me a number with four digits - {zodiac_value}!')
