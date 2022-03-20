@@ -135,9 +135,11 @@ def get_zodiac_info(request, zodiac_value):
     # присвоим его переменной description_value. Но если поиск безуспешен, присвоим этой же переменной значение None,
     # иначе будет ошибка TypeError, так как объект None не является словарем.
     # Именно переменную description_value помещаем в словарь, чтобы использовать в дальнейшем.
+    zodiacs = zodiac_dict
     data = {
         'description_zodiac': description_value,
-        'name': zodiac_value
+        'name': zodiac_value,
+        'zodiacs': zodiacs
     }
     # Переменной data присвоим словарь, который мы будем использовать при обращении к его значениям из HTML-файла.
     return render(request, 'horoscope/info_zodiac.html', context=data)
@@ -152,23 +154,27 @@ def get_zodiac_info_by_number(request, zodiac_value: int):
     if zodiac_value > len(zodiacs):
         return HttpResponseNotFound(f'There is no a zodiac sign with number {zodiac_value}!')
     name_zodiac = zodiacs[zodiac_value - 1]
-    redirect_url = reverse('horoscope_values', args=[name_zodiac])
+    redirect_url = reverse('horoscope_value', args=[name_zodiac])
     return HttpResponseRedirect(redirect_url)
 
 
 def index(request):
     types = list(zodiac_types)
+    zodiacs = zodiac_dict
     context = {
-        'types': types
+        'types': types,
+        'zodiacs': zodiacs
     }
     return render(request, 'horoscope/index.html', context=context)
 
 
 def get_zodiac_type_list(request, zodiac_value):
     type_list = zodiac_types.get(zodiac_value)
+    zodiacs = zodiac_dict
     if type_list:
         data = {
-            'type_list': type_list
+            'type_list': type_list,
+            'zodiacs': zodiacs
         }
         return render(request, 'horoscope/type_list.html', context=data)
     else:
