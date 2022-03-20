@@ -1,6 +1,8 @@
- <nav>
+{% load my_filter %}
+
+<nav>
         <a href="{% url 'horoscope_index' %}">Главная</a>
-        {% for zodiac in zodiacs %}
-            <a href="{% url 'horoscope_value' zodiac_value=zodiac %}">{{zodiac|title}}</a>
+        {% for zodiac, description_z in zodiacs.items %}
+            <a href="{% url 'horoscope_value' zodiac_value=zodiac %}">{{description_z|split|first|title}}</a>
         {% endfor %}
  </nav>

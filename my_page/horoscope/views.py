@@ -123,6 +123,10 @@ number_of_days = {
     12: 31
 }
 
+for_navbar = dict()
+for key, val in zodiac_dict.items():
+    for_navbar[key] = val['description']
+
 
 def get_zodiac_info(request, zodiac_value):
     description = zodiac_dict.get(zodiac_value)
@@ -135,11 +139,10 @@ def get_zodiac_info(request, zodiac_value):
     # присвоим его переменной description_value. Но если поиск безуспешен, присвоим этой же переменной значение None,
     # иначе будет ошибка TypeError, так как объект None не является словарем.
     # Именно переменную description_value помещаем в словарь, чтобы использовать в дальнейшем.
-    zodiacs = zodiac_dict
     data = {
         'description_zodiac': description_value,
         'name': zodiac_value,
-        'zodiacs': zodiacs
+        'zodiacs': for_navbar
     }
     # Переменной data присвоим словарь, который мы будем использовать при обращении к его значениям из HTML-файла.
     return render(request, 'horoscope/info_zodiac.html', context=data)
@@ -163,7 +166,7 @@ def index(request):
     zodiacs = zodiac_dict
     context = {
         'types': types,
-        'zodiacs': zodiacs
+        'zodiacs': for_navbar
     }
     return render(request, 'horoscope/index.html', context=context)
 
@@ -174,7 +177,7 @@ def get_zodiac_type_list(request, zodiac_value):
     if type_list:
         data = {
             'type_list': type_list,
-            'zodiacs': zodiacs
+            'zodiacs': for_navbar
         }
         return render(request, 'horoscope/type_list.html', context=data)
     else:
