@@ -1,15 +1,16 @@
 {% extends 'movie_app/base.html' %}
 
-
 {% block title %}
-All movies
+    All movies
 {% endblock %}
 
 {% block content %}
     <h2>All movies list</h2>
     <ul>
         {% for movie in movies %}
-            <li> {{ movie.name }}, rating - {{ movie.rating }}, year - {{ movie.year|default:"No info" }} </li>
+            <li><a href="{{movie.get_url}}">{{ movie.name }}</a></li>
+            <!-- Используем вновь созданный нами метод класса get_url, чтобы создать ссылку на страницу с информацией
+             о фильме. -->
         {% endfor %}
     </ul>
 {% endblock %}
