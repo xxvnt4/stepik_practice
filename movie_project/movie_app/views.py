@@ -9,11 +9,11 @@ def show_all_movie(request):
     }
     return render(request, 'movie_app/all_movies.html', context=context)
 
-def show_one_movie(request, id_movie):
+def show_one_movie(request, slug_movie:str):
     # Добавим еще одну функцию, которая будет отображать информацию об одном фильме. Эта функция аргументом принимает
-    # переменную id_movie.
-    movie = get_object_or_404(Movie, id=id_movie)
-    # Данной функцией мы получаем объект, а в случае отсутствия объекта с таким id возвращается ошибка 404.
+    # переменную slug_movie.
+    movie = get_object_or_404(Movie, slug=slug_movie)
+    # Данной функцией мы получаем объект, а в случае отсутствия объекта с таким slug возвращается ошибка 404.
     context = {
         'movie': movie
     }
