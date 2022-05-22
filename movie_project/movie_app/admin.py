@@ -1,5 +1,6 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from .models import Movie
+from django.db.models import QuerySet
 
 
 @admin.register(Movie)
@@ -21,6 +22,8 @@ class MovieAdmin(admin.ModelAdmin):
     # С помощью этой переменной мы можем сортировать нашу базу данных.
     list_per_page = 10
     # Пагинация - то количество элементов, которые мы хотим видеть на одной странице.
+    actions = ['set_dollars', 'set_euro']
+
     @admin.display(ordering='rating', description='Status')
     def rating_status(self, mov: Movie):
         if mov.rating < 50:
@@ -30,6 +33,19 @@ class MovieAdmin(admin.ModelAdmin):
         if mov.rating <= 85:
             return 'Зачет!'
         return 'Топчик!'
+
+    @admin.action(description='Установить валюту в доллар')
+    def set_dollars(self, request, qs: QuerySet):
+        qs.update(currency=Movie.USD)
+
+    @admin.action(description='Установить валюту в евро')
+    def set_euro(self, request, qs: QuerySet):
+        count_updated = qs.update(currency=Movie.EURO)
+        self.message_user(
+            request,
+            f'Было обновлено {count_updated} записей',
+            messages.ERROR
+        )
 
 
 
