@@ -23,6 +23,7 @@ class MovieAdmin(admin.ModelAdmin):
     list_per_page = 10
     # Пагинация - то количество элементов, которые мы хотим видеть на одной странице.
     actions = ['set_dollars', 'set_euro']
+    search_fields = ['name__startswith', 'rating']
 
     @admin.display(ordering='rating', description='Status')
     def rating_status(self, mov: Movie):
