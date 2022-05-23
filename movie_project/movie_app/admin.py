@@ -2,6 +2,33 @@ from django.contrib import admin, messages
 from .models import Movie
 from django.db.models import QuerySet
 
+class RatingFilter(admin.SimpleListFilter):
+    # Класс для собственных фильтров.
+    title = 'Фильтр по рейтингу'
+    # Название фильтра в панели.
+    parameter_name = 'rating'
+    # Название параметра в адресной строке.
+
+    def lookups(self, request, model_admin):
+        # Переопределим этот метод, где вернем нужные нам пункты в виде списка кортежей, где первый элемент
+        # пойдет в адресную строку, а второй - в панель фильтрации.
+        return [
+            ('<40', 'Низкий'),
+            ('от 40 до 59', 'Средний'),
+            ('от 60 до 79', 'Высокий'),
+            ('>=80', 'Высочайший')
+        ]
+
+    def queryset(self, request, queryset: QuerySet):
+        # Переопределим и этот метод, где опишем всю логику фильтрации.
+        if self.value() == '<40':
+            return queryset.filter(rating__lt=40)
+        if self.value() == 'от 40 до 59':
+            return queryset.filter(rating__gte=40).filter(rating__lt=60)
+        if self.value() == 'от 60 до 79':
+            return queryset.filter(rating__gte=60).filter(rating__lt=80)
+        if self.value() == '>=80':
+            return queryset.filter(rating__gte=80)
 
 @admin.register(Movie)
 # Можем навесить этот декоратор на наш класс - в этом случае, нам не придется в дальнейшем регистрировать наши классы
@@ -24,6 +51,9 @@ class MovieAdmin(admin.ModelAdmin):
     # Пагинация - то количество элементов, которые мы хотим видеть на одной странице.
     actions = ['set_dollars', 'set_euro']
     search_fields = ['name__startswith', 'rating']
+    list_filter = ['name', 'currency', RatingFilter]
+    # Для того, чтобы создать фильтр по уже существующим колонкам, нужно просто добавить переменную list_filter
+    # с названиями в виде списка. Но если мы хотим создать собственный фильтр, нужно создать класс (см. выше по коду).
 
     @admin.display(ordering='rating', description='Status')
     def rating_status(self, mov: Movie):
