@@ -1,6 +1,7 @@
 from django.contrib import admin, messages
-from .models import Movie
+from .models import Movie, Director
 from django.db.models import QuerySet
+
 
 class RatingFilter(admin.SimpleListFilter):
     title = 'Фильтр по рейтингу'
@@ -23,6 +24,7 @@ class RatingFilter(admin.SimpleListFilter):
             return queryset.filter(rating__gte=60).filter(rating__lt=80)
         if self.value() == '>=80':
             return queryset.filter(rating__gte=80)
+
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
@@ -64,6 +66,8 @@ class MovieAdmin(admin.ModelAdmin):
             messages.ERROR
         )
 
+
 # admin.site.register(Movie)
 # admin.site.register(MovieAdmin)
+admin.site.register(Director)
 
