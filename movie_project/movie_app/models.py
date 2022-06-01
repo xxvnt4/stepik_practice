@@ -2,7 +2,6 @@ from django.db import models
 from django.urls import reverse
 # from django.utils.text import slugify
 from django.core.validators import MaxValueValidator, MinValueValidator
-# Валидаторы, с помощью которых мы указываем на допустимые значения.
 
 
 class Director(models.Model):
@@ -32,6 +31,11 @@ class Movie(models.Model):
                                  validators=[MinValueValidator(1)])
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default=RUB)
     slug = models.SlugField(default='', null=False, db_index=True)
+    director = models.ForeignKey(Director, on_delete=models.PROTECT, null=True)
+    # Связь Один ко многим. В аргументы передается модель, с которой мы хотим связать текущую. Именованный аргумент
+    # on_delete задает поведение в случае удаления одного из элементов: PROTECT - невозможно удалить, если есть связанные
+    # записи, CASCADE - удаляет элемент вместе со связанными из другой модели, SET_NULL - при удалении элемента проставляет значения
+    # null в другой модели.
 
     # def save(self, *args, **kwargs):
     #     self.slug = slugify(self.name)

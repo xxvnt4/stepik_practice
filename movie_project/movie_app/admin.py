@@ -29,15 +29,11 @@ class RatingFilter(admin.SimpleListFilter):
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
     # fields = ['name', 'rating']
-    # Поля, отображаемые в форме объекта.
     exclude = ['budget']
-    # Поля, НЕотображаемые в форме объекта.
     readonly_fields = ['year']
-    # Нередактируемые поля.
     prepopulated_fields = {'slug': ('name',)}
-    # Вычисляемые поля.
-    list_display = ['name', 'rating', 'currency', 'budget', 'rating_status']
-    list_editable = ['rating', 'currency', 'budget']
+    list_display = ['name', 'rating', 'director', 'budget', 'rating_status']
+    list_editable = ['rating', 'director', 'budget']
     list_per_page = 10
     actions = ['set_dollars', 'set_euro']
     search_fields = ['name__startswith', 'rating']
