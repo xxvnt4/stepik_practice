@@ -1,0 +1,17 @@
+{% extends 'movie_app/base.html' %}
+
+{% block title %}
+    Director Info
+{% endblock %}
+
+{% block content %}
+    <h2>Information about {{ director.first_name }} {{ director.last_name }}</h2>
+    <hr>
+    <ul>
+        {% for movie in director.movies.all %}
+            <li>
+                <a href='{% url "movie_detail" movie.slug %}'>{{ movie.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

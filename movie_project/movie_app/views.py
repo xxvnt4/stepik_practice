@@ -2,7 +2,7 @@ from django.db.models import F, Max, Min, Avg, Value
 # Из этого модуля импортируем три необходимые агрегирующие функции. Также есть Sum, Count.
 from django.shortcuts import render, get_object_or_404
 
-from .models import Movie
+from .models import Movie, Director
 
 
 def show_all_movie(request):
@@ -48,3 +48,19 @@ def show_one_movie(request, slug_movie:str):
     }
     return render(request, 'movie_app/one_movie.html', context=context)
     # Выводим шаблон, передав необходимые нам переменные.
+
+
+def show_directors_list(request):
+    directors = Director.objects.all()
+    context = {
+        'directors': directors
+    }
+    return render(request, 'movie_app/directors_list.html', context=context)
+
+
+def show_one_director(request, slug_director:str):
+    director = get_object_or_404(Director, slug=slug_director)
+    context = {
+        'director': director
+    }
+    return render(request, 'movie_app/one_director.html', context=context)

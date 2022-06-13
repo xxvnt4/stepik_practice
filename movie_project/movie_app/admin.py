@@ -30,11 +30,11 @@ class RatingFilter(admin.SimpleListFilter):
 class MovieAdmin(admin.ModelAdmin):
     # fields = ['name', 'rating']
     exclude = ['budget']
-    readonly_fields = ['year']
+    # readonly_fields = ['year']
     prepopulated_fields = {'slug': ('name',)}
-    list_display = ['name', 'rating', 'director', 'budget', 'rating_status']
+    list_display = ['name', 'rating', 'director', 'budget', 'rating_status', 'year']
     # Поле actors нельзя добавлять в эту переменную - выскочит ошибка. Это поле является ManyToMany.
-    list_editable = ['rating', 'director', 'budget']
+    list_editable = ['rating', 'director', 'budget', 'year']
     filter_horizontal = ['actors']
     # Данная переменная позволяет добавлять актеров в фильмы более удобным способом. Есть горизонтальный и вертикальный
     # варианты.
@@ -66,9 +66,12 @@ class MovieAdmin(admin.ModelAdmin):
             messages.ERROR
         )
 
+@admin.register(Director)
+class DirectorAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('first_name', 'last_name')}
 
 # admin.site.register(Movie)
 # admin.site.register(MovieAdmin)
-admin.site.register(Director)
+# admin.site.register(Director)
 admin.site.register(Actor)
 # Не забыть зарегистрировать модель!
