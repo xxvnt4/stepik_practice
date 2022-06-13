@@ -12,6 +12,25 @@ class Director(models.Model):
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
+class Actor(models.Model):
+    # Создадим новую модель со связью Многие ко многим.
+    MALE = 'M'
+    FEMALE = 'F'
+    GENDERS = [
+        (MALE, 'Мужчина'),
+        (FEMALE, 'Женщина'),
+    ]
+    # Опишем необходимые переменные для поля gender.
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    gender = models.CharField(max_length=1, choices=GENDERS, default=MALE)
+
+    def __str__(self):
+        # Опишем поведения вывода в зависимости от пола актера или актрисы.
+        if self.gender == self.MALE:
+            return f'Actor {self.first_name} {self.last_name}'
+        else:
+            return f'Actresse {self.first_name} {self.last_name}'
 
 class Movie(models.Model):
     EURO = 'EUR'
@@ -32,10 +51,8 @@ class Movie(models.Model):
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default=RUB)
     slug = models.SlugField(default='', null=False, db_index=True)
     director = models.ForeignKey(Director, on_delete=models.PROTECT, null=True)
-    # Связь Один ко многим. В аргументы передается модель, с которой мы хотим связать текущую. Именованный аргумент
-    # on_delete задает поведение в случае удаления одного из элементов: PROTECT - невозможно удалить, если есть связанные
-    # записи, CASCADE - удаляет элемент вместе со связанными из другой модели, SET_NULL - при удалении элемента проставляет значения
-    # null в другой модели.
+    actors = models.ManyToManyField(Actor)
+    # Свяжем модель Actor с полем actors связью Многие ко многим.
 
     # def save(self, *args, **kwargs):
     #     self.slug = slugify(self.name)
