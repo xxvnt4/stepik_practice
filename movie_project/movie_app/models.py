@@ -22,6 +22,14 @@ class Director(models.Model):
         super(Director, self).save(*args, **kwargs)
 
 
+class DressingRoom(models.Model):
+    floor = models.IntegerField()
+    number = models.IntegerField()
+
+    def __str__(self):
+        return f'{self.floor} {self.number}'
+
+
 class Actor(models.Model):
     # Создадим новую модель со связью Многие ко многим.
     MALE = 'M'
@@ -33,6 +41,7 @@ class Actor(models.Model):
     # Опишем необходимые переменные для поля gender.
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+    dressing = models.OneToOneField(DressingRoom, on_delete=models.SET_NULL, null=True, blank=True)
     gender = models.CharField(max_length=1, choices=GENDERS, default=MALE)
 
     def __str__(self):
