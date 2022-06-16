@@ -4,7 +4,6 @@ from django.shortcuts import render, get_object_or_404
 
 from .models import Movie, Director
 
-
 def show_all_movie(request):
     ### movies = Movie.objects.order_by(F('year').desc(nulls_last=True))
     # В данном случае, для сортировки Movie.objects используем метод order_by(), куда аргументом в виде строки

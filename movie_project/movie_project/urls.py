@@ -22,5 +22,6 @@ admin.site.index_title = 'Teo V.'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('movie_app.urls')),
-    path('__debug__/', include('debug_toolbar.urls'))
+    path('__debug__/', include('debug_toolbar.urls')),
+    path('', include('form.urls')),
 ]
