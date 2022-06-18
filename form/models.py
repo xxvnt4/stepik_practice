@@ -4,7 +4,7 @@ from django.db import models
 
 class User(models.Model):
     name = models.CharField(max_length=50)
-    age = models.IntegerField()
+    age = models.IntegerField(blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
